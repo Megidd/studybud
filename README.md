@@ -1,6 +1,8 @@
 # Objective
 Following 7-hours-long Django tutorial :)
 
+YouTube tag: `PtQiiknWUcI`
+
 # Setting up
 
 Set up a project and run its server:
