@@ -1,4 +1,4 @@
-# studybud
+# Objective
 Following 7-hours-long Django tutorial :)
 
 # Setting up
