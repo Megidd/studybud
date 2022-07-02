@@ -34,3 +34,10 @@ Create a new component or app for the project:
 ```bash
 python manage.py startapp base
 ```
+# Run SQL commands
+
+Prepare database:
+
+```bash
+python manage.py migrate
+```
