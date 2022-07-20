@@ -82,6 +82,9 @@ def room(request, pk):
             user=request.user
             )
         room_message.save()
+
+        room.participants.add(request.user)
+
         return redirect('room', pk=room.id) # Redirect is a must for a full page reload to avoid side effects.
 
     # Renamed to avoid conflict with imported messages.
