@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Room, Topic
 from .forms import RoomForm
@@ -51,6 +52,7 @@ def room(request, pk):
     context = {'room':room}
     return render(request, 'base/room.html', context)
 
+@login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def createRoom(request):
     form = RoomForm()
 
@@ -63,6 +65,7 @@ def createRoom(request):
     context = {'form': form}
     return render(request, 'base/room_form.html', context)
 
+@login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
@@ -76,6 +79,7 @@ def updateRoom(request, pk):
     context = {'form':form}
     return render(request, 'base/room_form.html', context) 
 
+@login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
 
