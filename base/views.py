@@ -75,7 +75,11 @@ def home(request):
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    context = {'room':room}
+
+    # Renamed to avoid conflict with imported messages.
+    room_messages = room.message_set.all() # All the related tables.
+
+    context = {'room': room, 'room_messages': room_messages}
     return render(request, 'base/room.html', context)
 
 @login_required(login_url='/login') # If session ID is not good, user cannot access this.
