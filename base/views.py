@@ -30,6 +30,10 @@ def loginPage(request): # Don't use `login` for function name due to conflict.
     context = {}
     return render(request, 'base/login_register.html', context)
 
+def logoutUser(request):
+    logout(request) # Deletes session ID token.
+    return redirect('home')
+
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(
