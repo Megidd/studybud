@@ -76,7 +76,7 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
 
     # Renamed to avoid conflict with imported messages.
-    room_messages = room.message_set.all() # All the related tables.
+    room_messages = room.message_set.all().order_by('-created') # All the related tables.
 
     context = {'room': room, 'room_messages': room_messages}
     return render(request, 'base/room.html', context)
