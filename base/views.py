@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 
 # Create your views here.
@@ -74,6 +74,15 @@ def home(request):
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
+
+    if request.method == 'POST':
+        room_message = Message.objects.create(
+            body=request.POST.get('body'),
+            room=room,
+            user=request.user
+            )
+        room_message.save()
+        return redirect('room', pk=room.id) # Redirect is a must for a full page reload to avoid side effects.
 
     # Renamed to avoid conflict with imported messages.
     room_messages = room.message_set.all().order_by('-created') # All the related tables.
