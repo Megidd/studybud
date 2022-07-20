@@ -20,7 +20,7 @@ def loginPage(request): # Don't use `login` for function name due to conflict.
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower() # Just consider lower case.
         password = request.POST.get('password')
         try:
             user = User.objects.get(username=username)
@@ -46,6 +46,17 @@ def registerPage(request):
     page = 'register'
 
     form = UserCreationForm()
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower() # Make sure it's lower case.
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'An error occurred during registration')
 
     context = {'page': page, 'form': form}
     return render(request, 'base/login_register.html', context)
