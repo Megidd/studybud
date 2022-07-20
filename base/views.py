@@ -1,5 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -70,6 +71,9 @@ def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
 
+    if request.user != room.host:
+        return HttpResponse("You are not room owner")
+
     if request.method == 'POST':
         form = RoomForm(request.POST, instance=room)
         if form.is_valid():
@@ -82,6 +86,9 @@ def updateRoom(request, pk):
 @login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
+
+    if request.user != room.host:
+        return HttpResponse("You are not room owner")
 
     if request.method == 'POST':
         room.delete()
