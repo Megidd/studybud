@@ -69,7 +69,7 @@ def home(request):
         )
     room_count = rooms.count()
     topics = Topic.objects.all()
-    rooms_messages = Message.objects.all().order_by('-created')
+    rooms_messages = Message.objects.all()
 
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count,
     'rooms_messages': rooms_messages
@@ -92,7 +92,7 @@ def room(request, pk):
         return redirect('room', pk=room.id) # Redirect is a must for a full page reload to avoid side effects.
 
     # Renamed to avoid conflict with imported messages.
-    room_messages = room.message_set.all().order_by('-created') # All the related tables.
+    room_messages = room.message_set.all() # All the related tables.
     participants = room.participants.all()
 
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
