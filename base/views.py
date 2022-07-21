@@ -69,7 +69,11 @@ def home(request):
         )
     room_count = rooms.count()
     topics = Topic.objects.all()
-    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}
+    rooms_messages = Message.objects.all().order_by('-created')
+
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count,
+    'rooms_messages': rooms_messages
+    }
     return render(request, 'base/home.html', context)
 
 def room(request, pk):
