@@ -62,14 +62,14 @@ def registerPage(request):
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    rooms = Room.objects.filter(
+    rooms = Room.objects.filter( # Rooms are shown at homepage center.
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) |
         Q(description__icontains=q)
         )
     room_count = rooms.count()
-    topics = Topic.objects.all()
-    rooms_messages = Message.objects.all()
+    topics = Topic.objects.all() # Topics are shown at homepage left side.
+    rooms_messages = Message.objects.all() # Messages are shown at homepage right side.
 
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count,
     'rooms_messages': rooms_messages
