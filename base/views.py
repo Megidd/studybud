@@ -69,7 +69,9 @@ def home(request):
         )
     room_count = rooms.count()
     topics = Topic.objects.all() # Topics are shown at homepage left side.
-    rooms_messages = Message.objects.all() # Messages are shown at homepage right side.
+    rooms_messages = Message.objects.filter( # Messages are shown at homepage right side.
+        Q(room__topic__name__icontains=q)
+    )
 
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count,
     'rooms_messages': rooms_messages
