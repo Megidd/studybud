@@ -102,7 +102,8 @@ def room(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    rooms = user.room_set.all() # Var name should be consistent with var name used by templates.
+    context = {'user': user, 'rooms': rooms}
     return render(request, 'base/profile.html', context)
 
 @login_required(login_url='/login') # If session ID is not good, user cannot access this.
