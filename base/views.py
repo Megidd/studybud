@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 
 # Create your views here.
 
@@ -178,6 +178,6 @@ def deleteMessage(request, pk):
 
 @login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def updateUser(request):
-    usr = User.objects.get(id=request.user.id)
-    context = {'usr': usr}
+    form = UserForm(instance=request.user)
+    context = {'form': form}
     return render(request, 'base/update-user.html', context)
