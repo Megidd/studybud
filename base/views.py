@@ -179,5 +179,12 @@ def deleteMessage(request, pk):
 @login_required(login_url='/login') # If session ID is not good, user cannot access this.
 def updateUser(request):
     form = UserForm(instance=request.user)
+    if request.method == 'POST':
+        request.user.username = request.POST.get('username')
+        request.user.email = request.POST.get('email')
+        request.user.first_name = request.POST.get('first_name')
+        request.user.last_name = request.POST.get('last_name')
+        request.user.save()
+        return redirect('user-profile', pk=request.user.id)
     context = {'form': form}
     return render(request, 'base/update-user.html', context)
