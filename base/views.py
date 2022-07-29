@@ -175,3 +175,9 @@ def deleteMessage(request, pk):
 
     context = {'obj': message}
     return render(request, 'base/delete.html', context)
+
+@login_required(login_url='/login') # If session ID is not good, user cannot access this.
+def updateUser(request):
+    usr = User.objects.get(id=request.user.id)
+    context = {'usr': usr}
+    return render(request, 'base/update-user.html', context)
