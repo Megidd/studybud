@@ -193,3 +193,8 @@ def topicsPage(request):
     topics = Topic.objects.filter(name__icontains=q) # If "q" is empty, this is equivalent of objects.all()
     context = {'topics': topics}
     return render(request, 'base/topics.html', context)
+
+def activityPage(request):
+    rooms_messages = Message.objects.all()
+    context = {'rooms_messages': rooms_messages}
+    return render(request, 'base/activity.html', context)
