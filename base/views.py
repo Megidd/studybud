@@ -68,7 +68,8 @@ def home(request):
         Q(description__icontains=q)
         )
     room_count = rooms.count()
-    topics = Topic.objects.all() # Topics are shown at homepage left side.
+    # Limit number of displayed topics on homepage:
+    topics = Topic.objects.all()[0:5] # Topics are shown at homepage left side.
     rooms_messages = Message.objects.filter( # Messages are shown at homepage right side.
         Q(room__topic__name__icontains=q)
     )
