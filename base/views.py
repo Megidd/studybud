@@ -186,3 +186,9 @@ def updateUser(request):
             return redirect('user-profile', pk=request.user.id)
     context = {'form': form}
     return render(request, 'base/update-user.html', context)
+
+def topicsPage(request):
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
+    topics = Topic.objects.filter(name__icontains=q) # If "q" is empty, this is equivalent of objects.all()
+    context = {'topics': topics}
+    return render(request, 'base/topics.html', context)
