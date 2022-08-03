@@ -1,6 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from base.models import Room
+from .serializers import RoomSerializer
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -14,7 +15,5 @@ def getRoutes(request):
 @api_view(['GET'])
 def getRooms(request):
     rooms = Room.objects.all()
-    rooms_names = []
-    for room in rooms:
-        rooms_names.append(room.name)
-    return Response(rooms_names)
+    serializer = RoomSerializer(instance=rooms, many=True)
+    return Response(serializer.data)
