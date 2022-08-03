@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .. import models
+from base.models import Room
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -13,7 +13,7 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getRooms(request):
-    rooms = models.Room.objects.all()
+    rooms = Room.objects.all()
     rooms_names = []
     for room in rooms:
         rooms_names.append(room.name)
