@@ -11,11 +11,19 @@
     <div id="rooms-container"></div>
   </body>
   <script>
+    let roomsContainer = document.getElementById('rooms-container')
     let getRooms = async () => {
         let response = await fetch('http://127.0.0.1:8000/api/rooms/')
         let rooms = await response.json()
         console.log('RESPONSE:', response)
         console.log('ROOMS:', rooms)
+        for (let i=0; i<rooms.length; i++) {
+          roomEl = document.createElement('div')
+          roomEl.innerHTML = rooms[i].name
+          roomsContainer.appendChild(
+            roomEl
+          )
+        }
     }
     getRooms()
   </script>
