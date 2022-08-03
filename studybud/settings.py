@@ -41,10 +41,14 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
 
     'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    "corsheaders.middleware.CorsMiddleware", # before any middleware that can generate responses such as Django’s CommonMiddleware. If it is not before, it will not be able to add the CORS headers to these responses.
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,3 +138,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True # Allow all URLs to access our website.
