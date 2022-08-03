@@ -18,11 +18,13 @@
         console.log('RESPONSE:', response)
         console.log('ROOMS:', rooms)
         for (let i=0; i<rooms.length; i++) {
-          roomEl = document.createElement('div')
-          roomEl.innerHTML = rooms[i].name
-          roomsContainer.appendChild(
-            roomEl
-          )
+          room = rooms[i]
+          // Use template literal.
+          row = `<div>
+                     <h3>${room.name}</h3>
+                 </div>`
+          // appendChild(row) didn't work with template literal.
+          roomsContainer.innerHTML += row
         }
     }
     getRooms()
