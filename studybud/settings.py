@@ -129,9 +129,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/images/'
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+# Where to store user-uploaded images:
+MEDIA_ROOT = BASE_DIR / 'static/images'
 
 ## For user-uploaded images:
 # STATIC_ROOT =

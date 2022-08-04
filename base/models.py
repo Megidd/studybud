@@ -8,7 +8,9 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     bio = models.TextField(null=True, blank=True)
 
-    avatar = models.ImageField()
+    # We already had a user before adding this field,
+    # so, set null to true to avoid any DB conflict.
+    avatar = models.ImageField(null=True, default="avatar.svg") # Default image is inside static folder.
 
     USERNAME_FIELD = 'email' # Use email instead of username.
     REQUIRED_FIELDS = []
